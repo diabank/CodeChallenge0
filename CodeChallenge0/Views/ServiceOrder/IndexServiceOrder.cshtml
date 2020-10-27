@@ -1,0 +1,72 @@
+﻿@model IEnumerable<CodeChallenge0.Models.ViewModel.ServiceOrder>
+
+@{
+    ViewData["Title"] = "Service Orders";
+}
+
+<h1>Service Orders</h1>
+
+<p>
+    <a asp-action="Create">Create New Service Order</a>
+</p>
+
+
+<form asp-action="IndexForSearchAndSort" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="IndexForSearchAndSort">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="IndexForSearchAndSort" asp-route-sortOrder="DueDate" asp-route-searchString="@ViewData["CurrentFilter"]">Due Date</a>
+            </th>
+            <th>
+                <a asp-action="IndexForSearchAndSort" asp-route-sortOrder="DateAssigned" asp-route-searchString="@ViewData["CurrentFilter"]">Date Assigned</a>
+            </th>
+            <th>
+                <a asp-action="IndexForSearchAndSort" asp-route-sortOrder="EmployeeName" asp-route-searchString="@ViewData["CurrentFilter"]">Employee Name</a>
+            </th>
+            <th>
+                <a asp-action="IndexForSearchAndSort" asp-route-sortOrder="Title" asp-route-searchString="@ViewData["CurrentFilter"]">Title</a>
+            </th>
+            <th>
+                <a asp-action="IndexForSearchAndSort" asp-route-sortOrder="ServiceOrderId" asp-route-searchString="@ViewData["CurrentFilter"]">ServiceOrder Id</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAssigned)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceOrderId)
+            </td>
+
+            <td>
+                <a asp-action="DetailServiceOrder" asp-route-id="@item.ServiceOrderId">Details</a> |
+                <a asp-action="UpdateServiceOrder" asp-route-id="@item.ServiceOrderId">Edit</a> |
+                <a asp-action="DeleteServiceOrder" asp-route-id="@item.ServiceOrderId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

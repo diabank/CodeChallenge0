@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CodeChallenge0.Models.ViewModel.Employee>
+
+@{
+    ViewData["Title"] = "Employee Details";
+}
+
+<h1>Employees</h1>
+
+<p>
+    <a asp-controller="Employee" asp-action="Create">Create New Employee</a>
+</p>
+
+<form asp-action="IndexForSearchAndSort" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="IndexForSearchAndSort">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="IndexForSearchAndSort" asp-route-sortOrder="FirstName" asp-route-searchString="@ViewData["CurrentFilter"]">First Name</a>
+            </th>
+            <th>
+                <a asp-action="IndexForSearchAndSort" asp-route-sortOrder="LastName" asp-route-searchString="@ViewData["CurrentFilter"]">Last Name</a>
+            </th>
+            <th>
+                <a asp-action="IndexForSearchAndSort" asp-route-sortOrder="JobTitle" asp-route-searchString="@ViewData["CurrentFilter"]">Job Title</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+            <td>
+                <a asp-action="DetailEmployee" asp-route-id="@item.EmployeeId">Details</a> |
+                <a asp-action="UpdateEmployee" asp-route-id="@item.EmployeeId">Edit</a> |
+                <a asp-action="DeleteEmployee" asp-route-id="@item.EmployeeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
